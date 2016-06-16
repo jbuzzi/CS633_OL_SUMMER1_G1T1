@@ -1,12 +1,28 @@
 <div class="container">
+    <check if="{{ @SESSION.alert }}">
+        <div class="alert alert-{{ @SESSION.alert_type }}" role="alert">{{ @messages[@SESSION.alert] | raw }}</div>
+    </check>
 
-    <form class="form-signin col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6" method="POST" action="/authenticate">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="email" class="sr-only">Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <form class="form-signin form-horizontal col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" method="POST" action="{{ 'login' | alias }}">
+        <h2 class="form-signin-heading">Sign In</h2>
+        <div class="form-group">
+            <label for="email" class="control-label col-sm-2 col-md-3">Email</label>
+            <div class="col-sm-10 col-md-9">
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="{{ @POST.email }}" required autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label col-sm-2 col-md-3">Password</label>
+            <div class="col-sm-10 col-md-9">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
     </form>
 
+    <section class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <h2>Don't have an account?</h2>
+
+        <a href="{{ 'register' | alias }}" class="btn btn-lg btn-info btn-block">Sign Up</a></p>
+    </section>
 </div>

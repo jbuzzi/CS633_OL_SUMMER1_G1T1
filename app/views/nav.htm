@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Study Scheduler</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <check if="{{ @SESSION.loggedIn }}">
+                    <true>
+                        <li class="{{ @ALIAS=='home' ? 'active' : '' }}"><a href="{{ 'home' | alias }}">List Sessions</a></li>
+                        <li class="{{ @ALIAS=='add_session' ? 'active' : '' }}"><a href="{{ 'add_session' | alias }}">Add a Study Session</a></li>
+                    </true>
+                </check>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <check if="{{ @SESSION.loggedIn }}">
+                    <true>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="{{ @ALIAS=='profile' ? 'active' : '' }}"><a href="{{ 'profile' | alias }}">Profile</a></li>
+                                <li class="{{ @ALIAS=='my_sessions' ? 'active' : '' }}"><a href="{{ 'profile' | alias }}">My Study Sessions</a></li>
+                                <li class="{{ @ALIAS=='messages' ? 'active' : '' }}"><a href="{{ 'messages' | alias }}">Messages</a></li>
+                            </ul>
+                        </li>
+                        <li class="{{ @ALIAS=='logout' ? 'active' : '' }}"><a href="{{ 'logout' | alias }}">Log Out</a></li>
+                    </true>
+                    <false>
+                        <li class="{{ @ALIAS=='login' ? 'active' : '' }}"><a href="{{ 'login' | alias }}">Log In</a></li>
+                        <li class="{{ @ALIAS=='register' ? 'active' : '' }}"><a href="{{ 'register' | alias }}">Register</a></li>
+                    </false>
+                </check>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
