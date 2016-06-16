@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="<?php echo $ENCODING; ?>" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Study Scheduler</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <base href="<?php echo $SCHEME.'://'.$HOST.':'.$PORT.$BASE.'/'; ?>" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="app/css/bootstrap.min.css">
+        <link rel="stylesheet" href="app/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="app/css/style.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="app/js/form.js"></script>
+        <script src="app/js/moment.min.js"></script>
+        <script src="app/js/moment-timezone.min.js"></script>
+        <script src="app/js/transition.js"></script>
+        <script src="app/js/collapse.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="app/js/bootstrap-datetimepicker.min.js"></script>
+    </head>
+    <body>
+        <include href="nav.htm" />
+        <include href="{{@content}}" />
+    </body>
+</html>

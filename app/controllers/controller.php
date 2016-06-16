@@ -14,7 +14,9 @@ class Controller {
 
     function afterroute(){
         //echo '- After routing';
-        echo View::instance()->render('layout.htm');
+        echo Template::instance()->render('layout.htm');
+        $this->f3->clear('SESSION.alert');
+        $this->f3->clear('SESSION.error');
     }
 
     function __construct() {
@@ -23,9 +25,9 @@ class Controller {
         $this->f3=$f3;
 
         $db=new DB\SQL(
-            $f3->get('devdb'),
-            $f3->get('devdbusername'),
-            $f3->get('devdbpassword'),
+            $f3->get('db.db'),
+            $f3->get('db.username'),
+            $f3->get('db.password'),
             array( \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION )
         );
 
