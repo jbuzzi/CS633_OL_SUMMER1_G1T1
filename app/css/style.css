@@ -1,0 +1,14 @@
+body {
+    padding-top: 50px;
+}
+
+.form-group .help-block.error-msg {
+    display: none;
+}
+
+.form-group.error-required .help-block.error-msg.error-msg-required,
+.form-group.error-pattern .help-block.error-msg.error-msg-pattern,
+.form-group.error-minlength .help-block.error-msg.error-msg-minlength,
+.form-group.error-type .help-block.error-msg.error-msg-type {
+    display: block;
+}
