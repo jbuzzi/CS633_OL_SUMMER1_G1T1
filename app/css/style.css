@@ -8,7 +8,9 @@ body {
 
 .form-group.error-required .help-block.error-msg.error-msg-required,
 .form-group.error-pattern .help-block.error-msg.error-msg-pattern,
+.form-group.error-mismatch .help-block.error-msg.error-msg-mismatch,
 .form-group.error-minlength .help-block.error-msg.error-msg-minlength,
+.form-group.error-maxlength .help-block.error-msg.error-msg-maxlength,
 .form-group.error-type .help-block.error-msg.error-msg-type {
     display: block;
 }

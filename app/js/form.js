@@ -22,6 +22,9 @@ $(document).ready(function () {
         } else if (e.target.validity.patternMismatch) {
             e.target.setCustomValidity($(this).data('error-pattern'));
             parentGroup.addClass('error-pattern');
+        } else if (e.target.validity.patternMismatch) {
+            e.target.setCustomValidity($(this).data('error-mismatch'));
+            parentGroup.addClass('error-mismatch');
         } else if (e.target.validity.typeMismatch) {
             e.target.setCustomValidity($(this).data('error-type'));
             parentGroup.addClass('error-type');
