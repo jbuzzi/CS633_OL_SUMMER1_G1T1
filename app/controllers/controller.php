@@ -7,7 +7,7 @@ class Controller {
 
     function beforeroute(){
         if ($this->f3->get('SESSION.user') === null ) {
-            $this->f3->reroute('/login');
+            $this->f3->reroute('@login');
             exit;
         }
     }
