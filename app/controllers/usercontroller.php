@@ -101,10 +101,10 @@ class UserController extends Controller{
     function registerUser() {
         if ($this->isValid()) {
             $user = new User($this->db);
-            $new_user = $user->add();
+            $user->add();
             $this->f3->clear('SESSION.error');
             $this->f3->set('SESSION.alert', 'REGISTERED');
-            $this->f3->set('SESSION.alert', 'success');
+            $this->f3->set('SESSION.alert_type', 'success');
             $this->f3->reroute('@login');
         } else {
             $this->f3->set('content','register.htm');
