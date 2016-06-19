@@ -12,5 +12,13 @@ return array(
         'INVALID_CREDENTIALS' => 'Your email or password was invalid. Please try again.',
         'USER_NOT_FOUND' => 'You do not have an account in our system. <a href="' . BASE::instance()->get('ALIASES')['register'] . '">Sign Up</a> now.',
         'ACCOUNT_EXISTS' => 'You already have an account. Why don\'t <a href="' . BASE::instance()->get('ALIASES')['login'] . '">Sign In</a> instead?',
+        'STUDY_SESSION_NOT_FOUND' => 'Study Session not found.',
+        'EMPTY_START_TIME' => 'Enter a start time.',
+        'INVALID_START_TIME' => 'Please select a valid start time from the calendar.',
+        'EMPTY_END_TIME' => 'Enter an end time.',
+        'INVALID_END_TIME' => 'Please select a valid end time from the calendar.',
+        'EMPTY_LOCATION' => 'Select a location.',
+        'EMPTY_DESCRIPTION' => 'Enter a description.',
+        'STUDY_SESSION_ADDED' => 'Study session has been successfully created.'
     )
 );
