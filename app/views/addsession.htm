@@ -1,0 +1,88 @@
+<div class="container">
+    <check if="{{ @SESSION.alert }}">
+        <div class="alert alert-{{ @SESSION.alert_type }}" role="alert">{{ @messages[@SESSION.alert] | raw }}</div>
+    </check>
+
+    <form class="form-create-session form-horizontal" method="POST" action="{{ 'add_session' | alias }}">
+        <h2 class="form-create-session-heading">Create Study Session</h2>
+        <div class="form-group{{ @SESSION.error == 'INVALID_TITLE' ? ' has-error' : '' }}">
+            <label for="title" class="control-label col-sm-3 col-lg-2">Session Title</label>
+            <div class="col-sm-9 col-lg-10">
+                <input type="text" id="title" name="title" class="form-control" placeholder="Session Title" maxlength="60" value="{{ @POST.title }}" required autofocus>
+                <check if="{{ @SESSION.error == 'INVALID_TITLE' }}">
+                    <p class="help-block" role="alert">{{ @messages[@SESSION.error] }}</p>
+                </check>
+            </div>
+        </div>
+        <div class="form-group{{ @SESSION.error == 'INVALID_START_TIME' || @SESSION.error == 'INVALID_END_TIME' ? ' has-error' : '' }}">
+            <label for="start_time" class="control-label col-sm-3 col-lg-2">Date &amp; Time</label>
+            <div class="col-sm-4 col-lg-5">
+                <input type="text" id="start_time" name="start_time" class="form-control" placeholder="Start" value="{{ @POST.start_time }}" required>
+            </div>
+            <div class="col-sm-offset-1 col-sm-4 col-lg-offset-0 col-lg-5">
+                <input type="text" id="end_time" name="end_time" class="form-control" placeholder="End" value="{{ @POST.end_time }}" required>
+            </div>
+            <div class="col-sm-9 col-lg-10">
+                <p class="help-block" role="alert">{{ @messages[@SESSION.error] }}</p>
+                <check if="{{ @SESSION.error == 'INVALID_START_TIME' || @SESSION.error == 'INVALID_END_TIME' }}">
+                </check>
+            </div>
+        </div>
+        <div class="form-group{{ @SESSION.error == 'EMPTY_LOCATION' ? ' has-error' : '' }}">
+            <label for="location" class="control-label col-sm-3 col-lg-2">Location</label>
+            <div class="col-sm-9 col-lg-10">
+                <select type="location" id="location" name="location" class="form-control" required>
+                    <option value="">-- Location --</option>
+                    <repeat group="{{ @locations }}" value="{{ @location }}">
+                        <check if="{{ @location.id == @POST.location }}">
+                            <true>
+                                <option value="{{ @location.id }}" selected>{{ @location.name }}</option>
+                            </true>
+                            <false>
+                                <option value="{{ @location.id }}">{{ @location.name }}</option>
+                            </false>
+                        </check>
+                    </repeat>
+                </select>
+                <check if="{{ @SESSION.error == 'EMPTY_LOCATION' }}">
+                    <p class="help-block" role="alert">{{ @messages[@SESSION.error] }}</p>
+                </check>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="max_attendees" class="control-label col-sm-3 col-lg-2">Capacity (optional)</label>
+            <div class="col-sm-9 col-lg-10">
+                <input type="number" id="max_attendees" name="max_attendees" class="form-control" min="0" placeholder="Capacity (optional)" value="{{ @POST.max_attendees }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="control-label col-sm-3 col-lg-2">Description</label>
+            <div class="col-sm-9 col-lg-10">
+                <textarea id="description" name="description" class="form-control" minlength="10" placeholder="Description" required>{{ @POST.description }}</textarea>
+            </div>
+        </div>
+        <input type="hidden" name="creator" value="{{ @SESSION.user.id }}" />
+        <check if="{{ @POST.study_session_id }}">
+            <input type="hidden" name="id" value="{{ @POST.study_session_id }}" />
+        </check>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+    </form>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#start_time').datetimepicker({
+            format: 'MMM D, YYYY h:mm A'
+        });
+        $('#end_time').datetimepicker({
+            format: 'MMM D, YYYY h:mm A',
+            useCurrent: false
+        });
+        $("#start_time").on("dp.change", function (e) {
+            $('#end_time').data("DateTimePicker").minDate(e.date);
+        });
+        $("#end_time").on("dp.change", function (e) {
+            $('#start_time').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
