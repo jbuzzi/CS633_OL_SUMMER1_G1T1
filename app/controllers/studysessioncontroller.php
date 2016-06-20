@@ -3,7 +3,7 @@
 class StudySessionController extends Controller{
     function render() {
         $study_sessions = new StudySession($this->db);
-        $this->f3->set('StudySession', new StudySession($this->db));
+        $this->f3->set('StudySession', new StudySession($this->db, 'study_session'));
         $this->f3->set('study_sessions', $study_sessions->all());
         $this->f3->set('content','studysessions.htm');
     }
@@ -28,7 +28,6 @@ class StudySessionController extends Controller{
             $this->f3->set('POST.' . $key, trim($val));
         }
         $values = $this->f3->get('POST');
-        var_dump($values);
 
         // if edit, search for ID. If not there, reroute to home
         if (isset($values['id']) && !empty($values['id'])) {

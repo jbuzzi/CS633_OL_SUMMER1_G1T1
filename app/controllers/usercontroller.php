@@ -69,18 +69,31 @@ class UserController extends Controller{
             $this->f3->set('SESSION.error', 'INVALID_LAST_NAME');
             return false;
         }
-        if (strcmp($values['password'], $values['password_confirm']) != 0) {
-            $this->f3->set('SESSION.alert', 'PASSWORD_MISMATCH');
-            $this->f3->set('SESSION.alert_type', 'danger');
-            $this->f3->set('SESSION.error', 'PASSWORD_MISMATCH');
-            return false;
-        }
         $user = new User($this->db);
         $user->getByEmail($values['email']);
-        if (!$user->dry()) {
-            $this->f3->set('SESSION.alert', 'ACCOUNT_EXISTS');
-            $this->f3->set('SESSION.alert_type', 'info');
-            return false;
+        if (!empty($this->f3->get('SESSION.user'))) {
+            if (strcmp($values['email'], $this->f3->get('SESSION.user.email')) != 0 && !$user->dry()) {
+                $this->f3->set('SESSION.alert', 'DUPLICATE_ACCOUNT');
+                $this->f3->set('SESSION.alert_type', 'info');
+                return false;
+            }
+        } else {
+            if (empty($values['password'])) {
+                $this->f3->set('SESSION.alert', 'CORRECT_ERRORS_BELOW');
+                $this->f3->set('SESSION.alert_type', 'danger');
+                $this->f3->set('SESSION.error', 'EMPTY_PASSWORD');
+            }
+            if (strcmp($values['password'], $values['password_confirm']) != 0) {
+                $this->f3->set('SESSION.alert', 'PASSWORD_MISMATCH');
+                $this->f3->set('SESSION.alert_type', 'danger');
+                $this->f3->set('SESSION.error', 'PASSWORD_MISMATCH');
+                return false;
+            }
+            if (!$user->dry()) {
+                $this->f3->set('SESSION.alert', 'ACCOUNT_EXISTS');
+                $this->f3->set('SESSION.alert_type', 'info');
+                return false;
+            }
         }
         return true;
     }
@@ -98,6 +111,10 @@ class UserController extends Controller{
         $this->f3->set('content','profile.htm');
     }
 
+    function editProfile() {
+        $this->f3->set('content', 'editprofile.htm');
+    }
+
     function registerUser() {
         if ($this->isValid()) {
             $user = new User($this->db);
@@ -108,6 +125,25 @@ class UserController extends Controller{
             $this->f3->reroute('@login');
         } else {
             $this->f3->set('content','register.htm');
+        }
+    }
+
+    function saveProfile() {
+        if ($this->isValid()) {
+            $user = new User($this->db);
+            $user->edit($this->f3->get('SESSION.user.id'));
+            $this->f3->set('SESSION.user.id', $user->id);
+            $this->f3->set('SESSION.user.fname', $user->fname);
+            $this->f3->set('SESSION.user.lname', $user->lname);
+            $this->f3->set('SESSION.user.email', $user->email);
+            $this->f3->set('SESSION.user.user_type', $user->user_type);
+            $this->f3->clear('SESSION.error');
+            $this->f3->set('SESSION.alert', 'PROFILE_UPDATED');
+            $this->f3->set('SESSION.alert_type', 'success');
+            $this->f3->set('SESSION.loggedIn', true);
+            $this->f3->reroute('@profile');
+        } else {
+            $this->editProfile();
         }
     }
 }

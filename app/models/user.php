@@ -22,7 +22,7 @@ class User extends DB\SQL\Mapper{
     }
 
     public function add() {
-        $post = \Base::instance()->get('POST');
+        $post = Base::instance()->get('POST');
         $this->copyFrom('POST');
         // hash password
         $this->set('password', password_hash($post['password'], PASSWORD_DEFAULT));

@@ -1,4 +1,8 @@
 <div class="container">
+    <check if="{{ @SESSION.alert }}">
+        <div class="alert alert-{{ @SESSION.alert_type }}" role="alert">{{ @messages[@SESSION.alert] | raw }}</div>
+    </check>
+
     <h2>My Profile</h2>
 
     <dl class="dl-horizontal">
@@ -7,4 +11,6 @@
         <dt>Email:</dt><dd>{{ @SESSION.user.email }}</dd>
         <dt>User Type:</dt><dd>{{ @SESSION.user.user_type }}</dd>
     </dl>
+
+    <p><a href="{{ 'edit_profile' | alias }}" class="btn btn-default">Edit</a></p>
 </div>

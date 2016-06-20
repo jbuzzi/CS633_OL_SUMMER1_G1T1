@@ -37,7 +37,7 @@
         <div class="form-group{{ @SESSION.error == 'PASSWORD_MISMATCH' ? ' has-error error-mismatch' : '' }}">
             <label for="password" class="control-label col-sm-4">Confirm Password</label>
             <div class="col-sm-8">
-                <input type="password" id="password_confirm" name="password_confirm" class="form-control" placeholder="Confirm Password" required>
+                <input type="password" id="password_confirm" name="password_confirm" class="form-control" placeholder="Confirm Password" data-error-mismatch="{{ @messages['PASSWORD_MISMATCH'] }}" required>
                 <p class="help-block error-msg error-msg-mismatch" role="alert">{{ @messages['PASSWORD_MISMATCH'] }}</p>
             </div>
         </div>

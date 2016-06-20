@@ -52,11 +52,23 @@ class StudySession extends DB\SQL\Mapper{
         $this->erase();
     }
 
+    public function countAttendees($id) {
+        $attendees = new Attendee($this->db);
+        $num_attendees = $attendees->count(array('study_session_id=?', $id));
+        return $num_attendees;
+    }
+
+    public function isAttendee($user, $study_session) {
+        $attendees = new Attendee($this->db);
+        $attendees->load(array('study_session_id=?', $id));
+        return $num_attendees;
+    }
+
     public function isFull($id) {
         $study_session = $this->getById($id);
-        $attendees = new Attendee($this->db);
-        $num_attendees = $attendees->count(array('study_session=?', $id));
-        if (!empty($study_session->max_attendees) && $num_attendees == $study_session->max_attendees) {
+        $num_attendees = $this->countAttendees($id);
+        $max_attendees = $study_session[0]->get('max_attendees');
+        if (!empty($max_attendees) && $num_attendees == $max_attendees) {
             return true;
         }
         return false;

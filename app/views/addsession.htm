@@ -3,23 +3,21 @@
         <div class="alert alert-{{ @SESSION.alert_type }}" role="alert">{{ @messages[@SESSION.alert] | raw }}</div>
     </check>
 
-    <form class="form-create-session form-horizontal" method="POST" action="{{ 'add_session' | alias }}">
+    <form class="form-create-session form-horizontal" method="POST" action="{{ 'add_session_post' | alias }}">
         <h2 class="form-create-session-heading">Create Study Session</h2>
-        <div class="form-group{{ @SESSION.error == 'INVALID_TITLE' ? ' has-error' : '' }}">
+        <div class="form-group{{ @SESSION.error == 'INVALID_TITLE' ? ' has-error error-required' : '' }}">
             <label for="title" class="control-label col-sm-3 col-lg-2">Session Title</label>
             <div class="col-sm-9 col-lg-10">
-                <input type="text" id="title" name="title" class="form-control" placeholder="Session Title" maxlength="60" value="{{ @POST.title }}" required autofocus>
-                <check if="{{ @SESSION.error == 'INVALID_TITLE' }}">
-                    <p class="help-block" role="alert">{{ @messages[@SESSION.error] }}</p>
-                </check>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Session Title" maxlength="60" value="{{ @POST.title }}" data-error-required="{{ @messages['INVALID_TITLE'] }}" required autofocus>
+                <p class="help-block error-msg error-msg-required" role="alert">{{ @messages['INVALID_TITLE'] }}</p>
             </div>
         </div>
-        <div class="form-group{{ @SESSION.error == 'INVALID_START_TIME' || @SESSION.error == 'INVALID_END_TIME' ? ' has-error' : '' }}">
+        <div class="form-group">
             <label for="start_time" class="control-label col-sm-3 col-lg-2">Date &amp; Time</label>
-            <div class="col-sm-4 col-lg-5">
+            <div class="col-sm-4 col-lg-5{{ @SESSION.error == 'INVALID_START_TIME' ? ' has-error' : '' }}">
                 <input type="text" id="start_time" name="start_time" class="form-control" placeholder="Start" value="{{ @POST.start_time }}" required>
             </div>
-            <div class="col-sm-offset-1 col-sm-4 col-lg-offset-0 col-lg-5">
+            <div class="col-sm-offset-1 col-sm-4 col-lg-offset-0 col-lg-5{{ @SESSION.error == 'INVALID_END_TIME' ? ' has-error' : '' }}">
                 <input type="text" id="end_time" name="end_time" class="form-control" placeholder="End" value="{{ @POST.end_time }}" required>
             </div>
             <div class="col-sm-9 col-lg-10">

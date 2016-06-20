@@ -1,0 +1,32 @@
+<div class="container">
+    <check if="{{ @SESSION.alert }}">
+        <div class="alert alert-{{ @SESSION.alert_type }}" role="alert">{{ @messages[@SESSION.alert] | raw }}</div>
+    </check>
+
+    <form class="form-register form-horizontal col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" method="POST" action="{{ 'edit_profile_post' | alias }}">
+        <h2 class="form-register-heading">Edit Profile</h2>
+        <div class="form-group{{ @SESSION.error == 'INVALID_EMAIL' ? ' has-error error-required error-type' : '' }}">
+            <label for="email" class="control-label col-sm-4">Email</label>
+            <div class="col-sm-8">
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="{{ @SESSION.user.email }}" data-error-required="{{ @messages['INVALID_EMAIL'] }}" data-error-required="{{ @messages['INVALID_EMAIL'] }}" data-error-type="{{ @messages['INVALID_EMAIL'] }}" required autofocus>
+                <p class="help-block error-msg error-msg-required error-msg-type" role="alert">{{ @messages['INVALID_EMAIL'] }}</p>
+            </div>
+        </div>
+        <div class="form-group{{ @SESSION.error == 'INVALID_FIRST_NAME' ? ' has-error error-required' : '' }}">
+            <label for="fname" class="control-label col-sm-4">First Name</label>
+            <div class="col-sm-8">
+                <input type="fname" id="fname" name="fname" class="form-control" placeholder="First Name" value="{{ @SESSION.user.fname }}" data-error-required="{{ @messages['INVALID_FIRST_NAME'] }}" required>
+                <p class="help-block error-msg error-msg-required" role="alert">{{ @messages['INVALID_FIRST_NAME'] }}</p>
+            </div>
+        </div>
+        <div class="form-group{{ @SESSION.error == 'INVALID_LAST_NAME' ? ' has-error error-required' : '' }}">
+            <label for="lname" class="control-label col-sm-4">Last Name</label>
+            <div class="col-sm-8">
+                <input type="lname" id="lname" name="lname" class="form-control" placeholder="Last Name" value="{{ @SESSION.user.lname }}" data-error-required="{{ @messages['INVALID_LAST_NAME'] }}" required>
+                <p class="help-block error-msg error-msg-required" role="alert">{{ @messages['INVALID_LAST_NAME'] }}</p>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Save Changes</button>
+    </form>
+
+</div>

@@ -12,14 +12,16 @@
                             <dt>Start:</dt><dd>{{ date('D, F j, Y, g:i a', strtotime(@study_session.start_time)) }}</dd>
                             <dt>End:</dt><dd>{{ date('D, F j, Y, g:i a', strtotime(@study_session.end_time)) }}</dd>
                             <dt>Location:</dt><dd>{{ @study_session.location_name }}</dd>
+                            <dt>Attendees:</dt>
+                            <dd>{{ @StudySession->countAttendees(@study_session.id) }}<check if="{{ !empty(@study_session.max_attendees) }}"> / {{ @study_session.max_attendees }}</check></dd>
                         </dl>
                         <p>{{ @study_session.description }}</p>
                         <p><check if="{{ @study_session.creator == @SESSION.user.id }}">
                             <true><a href="#" class="btn btn-default">Edit</a></true>
                             <false>
-                                <check if="{{ @StudySession->isFull(@study_session.id) }}">
-                                    <false><a href="#" class="btn btn-primary">Join</a></false>
-                                </check>
+                                    <check if="{{ !@StudySession->isFull(@study_session.id) }}">
+                                        <a href="#" class="btn btn-primary">Join</a>
+                                    </check>
                             </false>
                         </check></p>
                     </div>
